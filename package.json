@@ -1,0 +1,51 @@
+{
+  "name": "adonis-drive-minio",
+  "version": "0.0.1",
+  "description": "Minio Driver for Adonis Drive",
+  "scripts": {
+    "test": "",
+    "coverage": "nyc npm test",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "keywords": [
+    "adonisjs",
+    "drive",
+    "minio"
+  ],
+  "author": "Ahmad Arif <ahmad.arif019@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "minio": "^5.0.0"
+  },
+  "devDependencies": {
+    "@adonisjs/fold": "^4.0.8",
+    "husky": "^1.0.0-rc.1",
+    "standard": "^11.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
+  "nyc": {
+    "exclude": [
+      "test"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text",
+      "text-summary"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "use"
+    ],
+    "ignore": [
+      ".nyc_output",
+      "coverage"
+    ]
+  }
+}
