@@ -9,13 +9,18 @@ Minio driver for AdonisJS Drive
 - [Minio](https://www.minio.io/)
 - [AdonisJS Drive](https://github.com/adonisjs/adonis-drive) (`adonis install @adonisjs/drive`)
 
+# Installation
+```
+adonis install adonis-drive-minio
+```
+
 # Instructions
 Make sure to register the provider inside `start/app.js` file.
 
 ```js
 const providers = [
   ...
-  'adonis-drive-minio/providers/DriveMinioProvider'
+  'adonis-drive-minio/providers/DriveProvider'
 ]
 ```
 
