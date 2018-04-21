@@ -15,6 +15,10 @@
   ],
   "author": "Ahmad Arif <ahmad.arif019@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmadarif/adonis-drive-minio"
+  },
   "dependencies": {
     "minio": "^5.0.0"
   },
