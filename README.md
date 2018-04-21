@@ -6,6 +6,7 @@
 Minio driver for AdonisJS Drive
 
 # Requirements
+- [Minio](https://www.minio.io/)
 - [AdonisJS Drive](https://github.com/adonisjs/adonis-drive) (`adonis install @adonisjs/drive`)
 
 # Instructions

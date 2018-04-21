@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 8.9.1
+sudo: false
+install:
+- npm install
+script:
+- npm test
+deploy:
+  provider: npm
+  email: ahmad.arif019@gmail.com
+  api_key:
+    secure: VkBL4OB50q51zmChnNF425SuSMLfD7YyM6WGISrgsF9C/DeJyqmmzKQyaEhjQu9Sq2R8ahCMHCLy4SWKQKPfI7pNUcaICyANapxP+f/r8H6Hi9TyJd1AYCe9IyR9TXGsKUhvGetGxY1gWjE+afo9Rk2jDu0Snmf8kQTI881TWABX8Y8l6CoKVIymP/VbMyd8JGlYxKEuehAeWn2Oo5+nD3MJanFq6nmy++beDMENC9PnMmEiOPgCAcNUs/ZnhI8nbJfvAtf1eYT77lUF+JDxmw6+xl1znqRrtW9AKoqI7OR5EpdpkhI1jteT9qE0kd/8uCfrxC5zeuP4BlmgkTutoTnAvW7cJ2LhzXQwCF5BObK7gz3me0pUPCefTmGFtn/kQF0TQ+NovuDH3lzfm323eDeDMUI+nNpwVfUFugdNYK5Jq+Noo2ZKmuVgtB+TZA8b1O0Uaa5Qimsar9gBjDQlSoXfhBNqUFhMWfmN3CQkbYucomHFKOeYw6akpcWfMBR7PcpBOyrCq0mMRXIOzVlsz7Olab7NqXK8WxOLv3sL9yw90zkbtBaj6dQ0NccEyt3gQNqzI17TwGWiuE4uKwbEpCAQpzID4PE+Hs+dlEjgjQzA7zQhu/kCBTHWuEiKwV3TVUTilGaXDVvQIibqzyLNDS5jQSDqANNSptyPWs0JtAE=
+  on:
+    tags: true
+    repo: ahmadarif/adonis-drive-minio

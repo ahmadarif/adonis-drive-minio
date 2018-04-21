@@ -1,9 +1,9 @@
 {
   "name": "adonis-drive-minio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Minio Driver for Adonis Drive",
   "scripts": {
-    "test": "",
+    "test": "echo \"not tested\"",
     "coverage": "nyc npm test",
     "lint": "standard",
     "lint:fix": "standard --fix"
