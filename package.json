@@ -1,6 +1,6 @@
 {
   "name": "adonis-drive-minio",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Minio Driver for Adonis Drive",
   "scripts": {
     "test": "echo \"not tested\"",
@@ -20,7 +20,8 @@
     "url": "https://github.com/ahmadarif/adonis-drive-minio"
   },
   "dependencies": {
-    "minio": "^5.0.0"
+    "minio": "^5.0.0",
+    "node-exceptions": "^3.0.0"
   },
   "devDependencies": {
     "@adonisjs/fold": "^4.0.8",

@@ -1,7 +1,7 @@
 'use strict'
 
 const { ServiceProvider } = require('@adonisjs/fold')
-const Minio = require('./src/Drivers')
+const Minio = require('../src/Drivers')
 
 class DriveProvider extends ServiceProvider {
   register () {

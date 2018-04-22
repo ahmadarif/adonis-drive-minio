@@ -3,6 +3,7 @@
 const minio = require('minio')
 const Resetable = require('resetable')
 const path = require('path')
+const FileNotFoundException = require('../Exceptions/FileNotFoundException')
 
 /**
  * Minio driver for flydrive
@@ -64,19 +65,27 @@ class Minio {
    *
    * @param  {String} content
    * @param  {String} [location=content basename]
+   * @param  {String} type
    *
    * @return {Promise<String>}
    */
-  put (content, location) {
+  put (content, location, type = null) {
     const bucket = this._bucket.pull()
     const url = this.getUrl(location, bucket)
     location = location || path.basename(content)
 
     return new Promise((resolve, reject) => {
-      this.minioClient.fPutObject(bucket, location, content, function (err, etag) {
-        if (err) return reject(err)
-        return resolve(url)
-      })
+      if (type) {
+        this.minioClient.fPutObject(bucket, location, content, type, function (err, etag) {
+          if (err) return reject(err)
+          return resolve(url)
+        })
+      } else {
+        this.minioClient.fPutObject(bucket, location, content, function (err, etag) {
+          if (err) return reject(err)
+          return resolve(url)
+        })
+      }
     })
   }
 
@@ -158,8 +167,9 @@ class Minio {
    * @return {Promise<String>}
    */
   async move (src, dest, destBucket) {
+    const srcbucket = this._bucket.get()
     const url = await this.copy(src, dest, destBucket)
-    await this.delete(src)
+    await this.bucket(srcbucket).delete(src)
     return url
   }
 
@@ -181,7 +191,11 @@ class Minio {
     const host = this.minioClient.host
     const port = this.minioClient.port
 
-    if (port === 80) { return `${protocol}${host}/${bucket}/${location}` } else { return `${protocol}${host}:${port}/${bucket}/${location}` }
+    if (port === 80) {
+      return `${protocol}//${host}/${bucket}/${location}`
+    } else {
+      return `${protocol}//${host}:${port}/${bucket}/${location}`
+    }
   }
 
   /**
@@ -197,10 +211,13 @@ class Minio {
    */
   getSignedUrl (location, expiry = 600) {
     return new Promise((resolve, reject) => {
-      this.minioClient.presignedUrl('GET', this._bucket.pull(), location, expiry, function (err, url) {
-        if (err) return reject(err)
-        return resolve(url)
-      })
+      this.exists(location).then(exists => {
+        if (!exists) return reject(FileNotFoundException.file(location))
+        this.minioClient.presignedGetObject(this._bucket.pull(), location, expiry, function (err, presignedUrl) {
+          if (err) return reject(err)
+          return resolve(presignedUrl)
+        })
+      }).catch(err => reject(err))
     })
   }
 }
