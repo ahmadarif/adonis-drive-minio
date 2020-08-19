@@ -1,6 +1,6 @@
 {
   "name": "adonis-drive-minio",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Minio Driver for Adonis Drive",
   "scripts": {
     "test": "echo \"not tested\"",
