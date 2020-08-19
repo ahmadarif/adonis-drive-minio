@@ -81,8 +81,8 @@ const url = await Drive.disk('minio').getSignedUrl
 ('adonis.jpeg')
 
 // url is valid for one hour
-const url = await Drive.disk('minio', 3600).getSignedUrl
-('adonis.jpeg')
+const url = await Drive.disk('minio').getSignedUrl
+('adonis.jpeg', 3600)
 
 ```
 
