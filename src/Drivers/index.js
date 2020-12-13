@@ -4,6 +4,7 @@ const minio = require('minio')
 const Resetable = require('resetable')
 const path = require('path')
 const FileNotFoundException = require('../Exceptions/FileNotFoundException')
+const ReadableStream = require('stream').Readable
 
 /**
  * Minio driver for flydrive
@@ -75,16 +76,23 @@ class Minio {
     location = location || path.basename(content)
 
     return new Promise((resolve, reject) => {
-      if (type) {
-        this.minioClient.fPutObject(bucket, location, content, type, function (err, etag) {
+      if(content instanceof ReadableStream) {
+        this.minioClient.putObject(bucket, location, content, function (err, etag) {
           if (err) return reject(err)
           return resolve(url)
         })
       } else {
-        this.minioClient.fPutObject(bucket, location, content, function (err, etag) {
-          if (err) return reject(err)
-          return resolve(url)
-        })
+        if (type) {
+          this.minioClient.fPutObject(bucket, location, content, type, function (err, etag) {
+            if (err) return reject(err)
+            return resolve(url)
+          })
+        } else {
+          this.minioClient.fPutObject(bucket, location, content, function (err, etag) {
+            if (err) return reject(err)
+            return resolve(url)
+          })
+        }
       }
     })
   }
