@@ -11,6 +11,17 @@ Route.post('minio', async ({ request, response }) => {
   response.send({ data: { url: url } })
 })
 
+// You should add this route to processManually in bodyparser config
+Route.post('minio/_stream', async ({ request, response }) => {
+  let url = null;
+  request.multipart.file("file", {}, async (file) => {
+    url = await Drive.disk("minio").put(file.stream, file.clientName);
+  });
+
+  await request.multipart.process();
+  response.send({ data: { url: url } })
+})
+
 Route.get('minio/:filename/exists', async ({ params, response }) => {
   const filename = params.filename
   const exists = await Drive.disk('minio').exists(filename)
